@@ -1,0 +1,31 @@
+project.ext {
+    androidCompileSdkVersion = 25
+    androidBuildToolsVersion = '25.0.2'
+    androidMinSdkVersion = 16
+    androidTargetSdkVersion = 25
+
+    libraryVersionCode = 1
+    libraryVersionName = "1.0"
+
+    androidSupportLibraryVersion = '25.1.0'
+}
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.2.2'
+        classpath 'com.novoda:bintray-release:0.3.4'
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
