@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.WindowManager;
 
 public class GradientView extends View {
+    private int centerColor;
+    private int borderColor;
 
     public GradientView(Context context) {
         this(context, null);
@@ -23,13 +25,13 @@ public class GradientView extends View {
     public GradientView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.GradientView);
-        int centerColor = attributes.getColor(R.styleable.GradientView_gr_centerColor, Color.BLACK);
-        int borderColor = attributes.getColor(R.styleable.GradientView_gr_borderColor, Color.BLACK);
+        centerColor = attributes.getColor(R.styleable.GradientView_gr_centerColor, Color.BLACK);
+        borderColor = attributes.getColor(R.styleable.GradientView_gr_borderColor, Color.BLACK);
         attributes.recycle();
-        setGradientBackground(centerColor, borderColor);
+        setGradientBackground();
     }
 
-    private void setGradientBackground(int centerColor, int borderColor) {
+    private void setGradientBackground() {
         WindowManager windowManager = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
         Display display = windowManager.getDefaultDisplay();
         Point point = new Point();
@@ -47,5 +49,19 @@ public class GradientView extends View {
 
     private int calculateRadius(int width, int height) {
         return (int) Math.sqrt(height * height + width * width / 4);
+    }
+
+    public void setCenterColor(int centerColor) {
+        this.centerColor = centerColor;
+    }
+
+    public void setBorderColor(int borderColor) {
+        this.borderColor = borderColor;
+    }
+
+    @Override
+    public void invalidate() {
+        super.invalidate();
+        setGradientBackground();
     }
 }
